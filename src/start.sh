@@ -17,6 +17,7 @@ rm latest.tar.gz
 ########### config nginx ###########
 chown -R www-data:www-data /var/www/*
 chmod -R 755 /var/www/*
+#chown -R mysql:mysql /var/run/mysqld/mysqld.sock
 
 #cp /src/default /etc/nginx/sites-available/default
 cat /ft_src/default > /etc/nginx/sites-available/default
@@ -25,7 +26,8 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/ngi
 #ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
 ########### mysql ###########
-mysql < ft_src/create_database.sql
+service mysql restart
+mysql -u root < /ft_src/create_database.sql
 
 service mysql restart && service php7.3-fpm restart && service nginx restart 
 /bin/sh
