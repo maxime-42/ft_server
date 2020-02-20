@@ -1,13 +1,13 @@
 #!/bin/bash
 
-########### phpmyadmin ###########
+########### phpmyadmin #############
 wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz
 tar -zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz 
 mv phpMyAdmin-4.9.0.1-all-languages phpmyadmin
 mv phpmyadmin /var/www/
 rm phpMyAdmin-4.9.0.1-all-languages.tar.gz
 
-########### wordpress ###########
+########### wordpress ##############
 wget https://wordpress.org/latest.tar.gz
 tar xzvf latest.tar.gz
 mv latest wordpress
@@ -17,15 +17,14 @@ rm latest.tar.gz
 ########### config nginx ###########
 chown -R www-data:www-data /var/www/*
 chmod -R 755 /var/www/*
-#chown -R mysql:mysql /var/run/mysqld/mysqld.sock
 
-#cp /src/default /etc/nginx/sites-available/default
+########### vhost nginx ############
 cat /ft_src/default > /etc/nginx/sites-available/default
+
+########### ssl ####################
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 
-#ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
-########### mysql ###########
+########### mysql ##################
 service mysql restart
 mysql -u root < /ft_src/create_database.sql
 

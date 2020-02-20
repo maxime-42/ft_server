@@ -1,4 +1,0 @@
-echo "CREATE DATABASE wordpress;" | mysql -u root
-echo "CREATE USER 'admni'@'localhost' IDENTIFIED BY 'admin;'" | mysql -u root
-echo "GRANT ALL ON wordpress.* TO 'admin'@'localhost' IDENTIFIED BY 'admin' WITH GRANT OPTION;"| mysql -u root
-echo "FLUSH PRIVILEGES;"
